@@ -63,9 +63,19 @@ namespace SimplePowerPlus.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon tray {
+        internal static System.Drawing.Icon Tray {
             get {
-                object obj = ResourceManager.GetObject("tray", resourceCulture);
+                object obj = ResourceManager.GetObject("Tray", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Window {
+            get {
+                object obj = ResourceManager.GetObject("Window", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

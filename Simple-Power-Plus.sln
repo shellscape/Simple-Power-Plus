@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple-Power-Plus", "Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows API", "External\Shellscape.Common\Microsoft\Windows API\Windows API.csproj", "{B20A1853-BDC5-47D5-9369-3999BBD7F516}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shellscape.Common", "External\Shellscape.Common\Shellscape.Common\Shellscape.Common.csproj", "{F7F1F64D-F6CD-42A9-B167-546E4EA31463}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{B20A1853-BDC5-47D5-9369-3999BBD7F516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B20A1853-BDC5-47D5-9369-3999BBD7F516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B20A1853-BDC5-47D5-9369-3999BBD7F516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F1F64D-F6CD-42A9-B167-546E4EA31463}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F1F64D-F6CD-42A9-B167-546E4EA31463}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F1F64D-F6CD-42A9-B167-546E4EA31463}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F1F64D-F6CD-42A9-B167-546E4EA31463}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

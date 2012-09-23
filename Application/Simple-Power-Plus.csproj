@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,6 +88,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -90,11 +108,17 @@
   <ItemGroup>
     <Content Include="Resources\Icons\simple.ico" />
     <Content Include="Resources\Icons\tray-icon.ico" />
+    <Content Include="Resources\Images\icon-large.png" />
+    <Content Include="Resources\Images\icon-small.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\External\Shellscape.Common\Microsoft\Windows API\Windows API.csproj">
       <Project>{b20a1853-bdc5-47d5-9369-3999bbd7f516}</Project>
       <Name>Windows API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\External\Shellscape.Common\Shellscape.Common\Shellscape.Common.csproj">
+      <Project>{f7f1f64d-f6cd-42a9-b167-546e4ea31463}</Project>
+      <Name>Shellscape.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
