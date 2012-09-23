@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>simple.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -110,6 +113,7 @@
     <Content Include="Resources\Icons\tray-icon.ico" />
     <Content Include="Resources\Images\icon-large.png" />
     <Content Include="Resources\Images\icon-small.png" />
+    <Content Include="simple.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\External\Shellscape.Common\Microsoft\Windows API\Windows API.csproj">
