@@ -1,0 +1,10 @@
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\bin\Debug\Simple-Power-Plus.exe.config
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\bin\Debug\Simple-Power-Plus.exe
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\bin\Debug\Simple-Power-Plus.pdb
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\Simple-Power-Plus.csprojResolveAssemblyReference.cache
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\SimplePowerPlus.Main.resources
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\SimplePowerPlus.Properties.Resources.resources
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\SimplePowerPlus.Resources.Icons.resources
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\Simple-Power-Plus.csproj.GenerateResource.Cache
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\Simple-Power-Plus.exe
+C:\Users\Andrew\Nuts and Bolts\Git\Simple-Power-Plus\obj\Debug\Simple-Power-Plus.pdb
