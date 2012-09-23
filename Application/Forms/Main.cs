@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Microsoft.WindowsAPI.Dialogs;
+
 namespace SimplePowerPlus {
 	public partial class Main : Form {
 
@@ -40,29 +42,41 @@ namespace SimplePowerPlus {
 			var @switch = new ToolStripMenuItem("Switch User", null, new EventHandler(delegate(object sender, EventArgs e) {
 				WTSDisconnectSession(WTS_CURRENT_SERVER_HANDLE, WTS_CURRENT_SESSION, false);
 			}));
+			@switch.ToolTipText = "Switch to a different user, without logging off";
 
 			var logoff = new ToolStripMenuItem("Logoff", null, new EventHandler(delegate(object sender, EventArgs e) {
-				ExitWindowsEx(4, 0);
+				if(Ask("Logoff", "Logoff, and grab a drink")) {
+					ExitWindowsEx(4, 0);
+				}
 			}));
 
 			var @lock = new ToolStripMenuItem("Lock", null, new EventHandler(delegate(object sender, EventArgs e) {
 				LockWorkStation();
 			}));
+			@lock.ToolTipText = "Lock the computer, so nosey people can't meddle";
 
 			var sleep = new ToolStripMenuItem("Sleep", null, new EventHandler(delegate(object sender, EventArgs e) {
 				Application.SetSuspendState(PowerState.Suspend, true, true);
 			}));
+			sleep.ToolTipText = "Give your computer a rest, and put it to sleep.";
 
 			var hibernate = new ToolStripMenuItem("Hibernate", null, new EventHandler(delegate(object sender, EventArgs e) {
-				Application.SetSuspendState(PowerState.Hibernate, true, true);
+				if(Ask("Hibernate", "Put the computer into hibernation, without turning it off")) {
+					Application.SetSuspendState(PowerState.Hibernate, true, true);
+				}
 			}));
+			hibernate.ToolTipText = "Put the computer into hibernation, without turning it off";
 
 			var restart = new ToolStripMenuItem("Restart", null, new EventHandler(delegate(object sender, EventArgs e) {
-				ExitWindowsEx(2, 0);
+				if(Ask("Restart", "Restart the computer")) {
+					ExitWindowsEx(2, 0);
+				}
 			}));
 
 			var shutdown = new ToolStripMenuItem("Shutdown", null, new EventHandler(delegate(object sender, EventArgs e) {
-				ExitWindowsEx(1, 0);
+				if(Ask("Shutdown", "Shutdown the computer")) {
+					ExitWindowsEx(1, 0);
+				}
 			}));
 
 			_trayIcon.ContextMenuStrip = new ContextMenuStrip();
@@ -80,6 +94,31 @@ namespace SimplePowerPlus {
 				new ToolStripSeparator(), 
 				restart, shutdown 
 			});
+		}
+
+		private Boolean Ask(String function, String yes) {
+
+			using(TaskDialog dialog = new TaskDialog() { Icon = TaskDialogStandardIcon.Information }) {
+
+				TaskDialogCommandLink yesButton = new TaskDialogCommandLink("yes", "Yes, " + function, yes);
+				yesButton.Click += delegate(object s, EventArgs ea) {
+					dialog.Close(TaskDialogResult.Yes);
+				};
+
+				TaskDialogCommandLink noButton = new TaskDialogCommandLink("no", "No", "Get me out of here...");
+				noButton.Click += delegate(object s, EventArgs ea) {
+					dialog.Close(TaskDialogResult.No);
+				};
+
+				dialog.InstructionText = "Are you sure you want to " + function + "?";
+				dialog.Caption = "Simple Power Plus - " + function;
+				dialog.Controls.Add(yesButton);
+				dialog.Controls.Add(noButton);
+
+				var result = dialog.Show();
+
+				return result == TaskDialogResult.Yes;
+			}
 		}
 	}
 }

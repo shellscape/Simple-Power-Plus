@@ -91,6 +91,12 @@
     <Content Include="Resources\Icons\simple.ico" />
     <Content Include="Resources\Icons\tray-icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\External\Shellscape.Common\Microsoft\Windows API\Windows API.csproj">
+      <Project>{b20a1853-bdc5-47d5-9369-3999bbd7f516}</Project>
+      <Name>Windows API</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
