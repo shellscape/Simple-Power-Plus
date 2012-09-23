@@ -1,4 +1,4 @@
-﻿namespace SimplePowerPlus {
+﻿namespace SimplePowerPlus.Forms {
   partial class Main {
 	/// <summary>
 	/// Required designer variable.
