@@ -5,15 +5,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SimplePowerPlus {
-  static class Program {
-	/// <summary>
-	/// The main entry point for the application.
-	/// </summary>
-	[STAThread]
-	static void Main() {
-	  Application.EnableVisualStyles();
-	  Application.SetCompatibleTextRenderingDefault(false);
-	  Application.Run(new Forms.Main());
+	static class Program {
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+		[STAThread]
+		static void Main() {
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+
+			Config.Init();
+
+			Application.Run(new Forms.Main());
+		}
 	}
-  }
 }

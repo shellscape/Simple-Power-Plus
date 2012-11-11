@@ -17,14 +17,12 @@ namespace SimplePowerPlus.Forms {
 	public partial class Main : Form {
 
 		private NotifyIcon _trayIcon = new NotifyIcon();
+		private Boolean _ask = true;
 
 		#region .    PInvoke
 
 		[DllImport("user32.dll")]
 		public static extern void LockWorkStation();
-
-		[DllImport("user32.dll")]
-		public static extern int ExitWindowsEx(int uFlags, int dwReason);
 
 		[DllImport("wtsapi32.dll", SetLastError = true)]
 		static extern bool WTSDisconnectSession(IntPtr hServer, int sessionId, bool bWait);
@@ -34,7 +32,7 @@ namespace SimplePowerPlus.Forms {
 
 		[DllImport("user32.dll")]
 		private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-		
+
 		private const int SC_SCREENSAVE = 0xF140;
 		private const int WM_SYSCOMMAND = 0x0112;
 		private const int WTS_CURRENT_SESSION = -1;
@@ -58,8 +56,8 @@ namespace SimplePowerPlus.Forms {
 			@switch.ToolTipText = "Switch to a different user, without logging off";
 
 			var logoff = new ToolStripMenuItem("Logoff", null, new EventHandler(delegate(object sender, EventArgs e) {
-				if(Ask("Logoff", "Logoff, and grab a drink")) {
-					ExitWindowsEx(4, 0);
+				if (Ask("Logoff", "Logoff, and grab a drink")) {
+					Shutdown("/l");
 				}
 			}));
 
@@ -78,21 +76,21 @@ namespace SimplePowerPlus.Forms {
 			sleep.ToolTipText = "Give your computer a rest, and put it to sleep.";
 
 			var hibernate = new ToolStripMenuItem("Hibernate", null, new EventHandler(delegate(object sender, EventArgs e) {
-				if(Ask("Hibernate", "Put the computer into hibernation, without turning it off")) {
+				if (Ask("Hibernate", "Put the computer into hibernation, without turning it off")) {
 					Application.SetSuspendState(PowerState.Hibernate, true, true);
 				}
 			}));
 			hibernate.ToolTipText = "Put the computer into hibernation, without turning it off";
 
 			var restart = new ToolStripMenuItem("Restart", null, new EventHandler(delegate(object sender, EventArgs e) {
-				if(Ask("Restart", "Restart the computer")) {
-					ExitWindowsEx(2, 0);
+				if (Ask("Restart", "Restart the computer")) {
+					Shutdown("/r /t 0");
 				}
 			}));
 
 			var shutdown = new ToolStripMenuItem("Shutdown", Resources.Images.IconSmall, new EventHandler(delegate(object sender, EventArgs e) {
-				if(Ask("Shutdown", "Shutdown the computer")) {
-					ExitWindowsEx(1, 0);
+				if (Ask("Shutdown", "Shutdown the computer")) {
+					Shutdown("/s /t 0");
 				}
 			}));
 
@@ -109,7 +107,7 @@ namespace SimplePowerPlus.Forms {
 					aboutWin.TopMost = false;
 				};
 
-				if(aboutWin.InvokeRequired) {
+				if (aboutWin.InvokeRequired) {
 					aboutWin.Invoke(method);
 				}
 				else {
@@ -144,7 +142,7 @@ namespace SimplePowerPlus.Forms {
 
 		private Boolean Ask(String function, String yes) {
 
-			using(TaskDialog dialog = new TaskDialog() { Icon = TaskDialogStandardIcon.Information }) {
+			using (TaskDialog dialog = new TaskDialog() { Icon = TaskDialogStandardIcon.Information }) {
 
 				TaskDialogCommandLink yesButton = new TaskDialogCommandLink("yes", "Yes, " + function, yes);
 				yesButton.Click += delegate(object s, EventArgs ea) {
@@ -167,19 +165,33 @@ namespace SimplePowerPlus.Forms {
 			}
 		}
 
-		public static bool ScreenSaverActive() {
+		private bool ScreenSaverActive() {
 
 			try {
 				RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Control Panel\Desktop", true);
 
-				if(key != null) {
+				if (key != null) {
 					return key.GetValue("SCRNSAVE.EXE", null) != null;
 				}
 			}
-			catch(System.Security.SecurityException) { }
-			catch(System.UnauthorizedAccessException) { }
+			catch (System.Security.SecurityException) { }
+			catch (System.UnauthorizedAccessException) { }
 
 			return false;
+		}
+
+		private void Shutdown(String arguments) {
+			
+			using (var process = new System.Diagnostics.Process()) {
+				process.StartInfo.FileName = "shutdown";
+				process.StartInfo.Arguments = arguments;
+				process.StartInfo.CreateNoWindow = true;
+				process.StartInfo.UseShellExecute = false;
+				process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+				process.StartInfo.RedirectStandardOutput = true;
+
+				process.Start();
+			}
 		}
 
 	}
