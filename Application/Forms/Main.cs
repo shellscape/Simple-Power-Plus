@@ -50,53 +50,61 @@ namespace SimplePowerPlus.Forms {
 			_trayIcon.Icon = Resources.Icons.Tray;
 			_trayIcon.Visible = true;
 
-			var @switch = new ToolStripMenuItem("Switch User", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var @switch = new ToolStripMenuItem("Switch User", null, (object sender, EventArgs e) => {
 				WTSDisconnectSession(WTS_CURRENT_SERVER_HANDLE, WTS_CURRENT_SESSION, false);
-			}));
+			});
 			@switch.ToolTipText = "Switch to a different user, without logging off";
 
-			var logoff = new ToolStripMenuItem("Logoff", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var logoff = new ToolStripMenuItem("Logoff", null, (object sender, EventArgs e) => {
 				if (Ask("Logoff", "Logoff, and grab a drink")) {
 					Shutdown("/l");
 				}
-			}));
+			});
 
-			var @lock = new ToolStripMenuItem("Lock", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var @lock = new ToolStripMenuItem("Lock", null, (object sender, EventArgs e) => {
 				LockWorkStation();
-			}));
+			});
 			@lock.ToolTipText = "Lock the computer, so nosey people can't meddle";
 
-			var screensaver = new ToolStripMenuItem("Start Screensaver", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var screensaver = new ToolStripMenuItem("Start Screensaver", null, (object sender, EventArgs e) => {
 				SendMessage(GetDesktopWindow(), WM_SYSCOMMAND, new IntPtr(SC_SCREENSAVE), IntPtr.Zero);
-			}));
+			});
 
-			var sleep = new ToolStripMenuItem("Sleep", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var sleep = new ToolStripMenuItem("Sleep", null, (object sender, EventArgs e) => {
 				Application.SetSuspendState(PowerState.Suspend, true, true);
-			}));
+			});
 			sleep.ToolTipText = "Give your computer a rest, and put it to sleep.";
 
-			var hibernate = new ToolStripMenuItem("Hibernate", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var hibernate = new ToolStripMenuItem("Hibernate", null, (object sender, EventArgs e) => {
 				if (Ask("Hibernate", "Put the computer into hibernation, without turning it off")) {
 					Application.SetSuspendState(PowerState.Hibernate, true, true);
 				}
-			}));
+			});
 			hibernate.ToolTipText = "Put the computer into hibernation, without turning it off";
 
-			var restart = new ToolStripMenuItem("Restart", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var restart = new ToolStripMenuItem("Restart", null, (object sender, EventArgs e) => {
 				if (Ask("Restart", "Restart the computer")) {
 					Shutdown("/r /t 0");
 				}
-			}));
+			});
 
-			var shutdown = new ToolStripMenuItem("Shutdown", Resources.Images.IconSmall, new EventHandler(delegate(object sender, EventArgs e) {
+			var shutdown = new ToolStripMenuItem("Shutdown", Resources.Images.IconSmall, (object sender, EventArgs e) => {
 				if (Ask("Shutdown", "Shutdown the computer")) {
 					Shutdown("/s /t 0");
 				}
-			}));
+			});
 
 			shutdown.Font = new Font(shutdown.Font, shutdown.Font.Style | FontStyle.Bold);
 
-			var about = new ToolStripMenuItem("About Simple Power Plus", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var ask = new ToolStripMenuItem("Ask before action", null, (object sender, EventArgs e) => {
+				var item = sender as ToolStripMenuItem;
+				item.Checked = Config.Current.Ask = !Config.Current.Ask;
+				Config.Current.Save();
+			});
+
+			ask.Checked = Config.Current.Ask;
+
+			var about = new ToolStripMenuItem("About Simple Power Plus", null, (object sender, EventArgs e) => {
 				About aboutWin = Shellscape.Program.FindForm(typeof(About)) as About ?? new About();
 
 				MethodInvoker method = delegate() { // yes, all this ugly is necessary.
@@ -113,12 +121,12 @@ namespace SimplePowerPlus.Forms {
 				else {
 					method();
 				}
-			}));
+			});
 
-			var exit = new ToolStripMenuItem("Exit", null, new EventHandler(delegate(object sender, EventArgs e) {
+			var exit = new ToolStripMenuItem("Exit", null, (object sender, EventArgs e) => {
 				_trayIcon.Visible = false;
 				Application.Exit();
-			}));
+			});
 
 			_trayIcon.ContextMenuStrip = new ContextMenuStrip();
 			_trayIcon.MouseClick += delegate(object sender, MouseEventArgs e) {
@@ -136,7 +144,7 @@ namespace SimplePowerPlus.Forms {
 				new ToolStripSeparator(), 
 				restart, shutdown,
 				new ToolStripSeparator(),
-				about, exit
+				ask, about, exit
 			});
 		}
 

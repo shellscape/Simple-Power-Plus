@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SimplePowerPlus {
-	public class Config : Shellscape.Configuration.Config {
+
+	[DataContract(Name = "config")]
+	public class Config : Shellscape.Configuration.Config<Config> {
 
 		[DataMember(Name = "ask")]
 		public Boolean Ask { get; set; }
