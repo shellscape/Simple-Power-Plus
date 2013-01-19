@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SimplePowerPlus</RootNamespace>
-    <AssemblyName>Simple-Power-Plus</AssemblyName>
+    <AssemblyName>Simple Power Plus</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,6 +33,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>simple.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SimplePowerPlus.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

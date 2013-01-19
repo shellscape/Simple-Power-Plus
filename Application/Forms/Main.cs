@@ -49,6 +49,7 @@ namespace SimplePowerPlus.Forms {
 
 			_trayIcon.Icon = Resources.Icons.Tray;
 			_trayIcon.Visible = true;
+			_trayIcon.Text = "Simple Power Plus";
 
 			var @switch = new ToolStripMenuItem("Switch User", null, (object sender, EventArgs e) => {
 				WTSDisconnectSession(WTS_CURRENT_SERVER_HANDLE, WTS_CURRENT_SESSION, false);
@@ -149,6 +150,10 @@ namespace SimplePowerPlus.Forms {
 		}
 
 		private Boolean Ask(String function, String yes) {
+
+			if (!Config.Current.Ask) {
+				return true;
+			}
 
 			using (TaskDialog dialog = new TaskDialog() { Icon = TaskDialogStandardIcon.Information }) {
 
